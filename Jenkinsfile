@@ -3,7 +3,7 @@ node {
     checkout scm
 
     env.DOCKER_API_VERSION="1.23"
-    env.DOCKER_OPTS="--insecure-registry"
+    env.DOCKER_OPTS="--insecure-registry registry.core:443"
     
     sh "git rev-parse --short HEAD > commit-id"
 
