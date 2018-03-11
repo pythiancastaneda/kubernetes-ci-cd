@@ -8,7 +8,7 @@ node {
 
     tag = readFile('commit-id').replace("\n", "").replace("\r", "")
     appName = "hello-kenzan"
-    registryHost = "087350953654.dkr.ecr.us-east-1.amazonaws.com/"
+    registryHost = "192.168.1.175:5000/"
     imageName = "${registryHost}${appName}:${tag}"
     env.BUILDIMG=imageName
 
@@ -22,6 +22,6 @@ node {
 
     stage "Deploy"
 
-        sh "sed 's#087350953654.dkr.ecr.us-east-1.amazonaws.com/hello-kenzan:latest#'$BUILDIMG'#' applications/hello-kenzan/k8s/deployment.yaml | kubectl apply -f -"
+        sh "sed 's#192.168.1.175:5000/hello-kenzan:latest#'$BUILDIMG'#' applications/hello-kenzan/k8s/deployment.yaml | kubectl apply -f -"
         sh "kubectl rollout status deployment/hello-kenzan"
 }
