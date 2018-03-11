@@ -11,12 +11,14 @@ node {
     registryHost = "registry.core:443/"
     imageName = "${registryHost}${appName}:${tag}"
     env.BUILDIMG=imageName
+    sh DOCKER_OPTS="--insecure-registry registry.core:443
 
     stage "Build"
     
         sh "docker build -t ${imageName} -f applications/hello-kenzan/Dockerfile applications/hello-kenzan"
     
     stage "Push"
+        
         sh "docker push ${imageName}"
 
     stage "Deploy"
